@@ -1,10 +1,7 @@
+*.DS_Store
 *.pyc
 .idea/
-telepot.egg-info/
+telepotpro.egg-info/
 dist/
-experiments/
-doc/_build/
-todo.txt
 .remote-sync.json
 .pypirc
-bugs/

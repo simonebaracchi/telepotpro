@@ -43,7 +43,7 @@ else:
     cmdclass['install_lib'] = nocompile_async
 
 # Parse version
-with open(path.join(here, 'telepot', '__init__.py')) as f:
+with open(path.join(here, 'telepotpro', '__init__.py')) as f:
     m = re.search('^__version_info__ *= *\(([0-9]+), *([0-9]+)\)', f.read(), re.MULTILINE)
     version = '.'.join(m.groups())
 
@@ -51,8 +51,8 @@ with open(path.join(here, 'telepot', '__init__.py')) as f:
 setup(
     cmdclass=cmdclass,
 
-    name='telepot',
-    packages=['telepot', 'telepot.aio'],
+    name='telepotpro',
+    packages=['telepotpro', 'telepotpro.aio'],
     # Do not filter out packages because we need the whole thing during `sdist`.
 
     install_requires=install_requires,
@@ -63,9 +63,9 @@ setup(
 
     long_description='',
 
-    url='https://github.com/nickoala/telepot',
+    url='https://github.com/pesaventofilippo/telepotpro',
 
-    author='Nick Lee',
+    author='Filippo Pesavento',
     author_email='lee1nick@yahoo.ca',
 
     license='MIT',

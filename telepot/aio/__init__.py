@@ -137,7 +137,7 @@ class Bot(_BotBase):
         """
         See: https://core.telegram.org/bots/api#sendaudio
 
-        :param audio: Same as ``photo`` in :meth:`telepot.aio.Bot.sendPhoto`
+        :param audio: Same as ``photo`` in :meth:`telepotpro.aio.Bot.sendPhoto`
         """
         p = _strip(locals(), more=['audio'])
         return await self._api_request_with_file('sendAudio', _rectify(p), 'audio', audio)
@@ -151,7 +151,7 @@ class Bot(_BotBase):
         """
         See: https://core.telegram.org/bots/api#senddocument
 
-        :param document: Same as ``photo`` in :meth:`telepot.aio.Bot.sendPhoto`
+        :param document: Same as ``photo`` in :meth:`telepotpro.aio.Bot.sendPhoto`
         """
         p = _strip(locals(), more=['document'])
         return await self._api_request_with_file('sendDocument', _rectify(p), 'document', document)
@@ -169,7 +169,7 @@ class Bot(_BotBase):
         """
         See: https://core.telegram.org/bots/api#sendvideo
 
-        :param video: Same as ``photo`` in :meth:`telepot.aio.Bot.sendPhoto`
+        :param video: Same as ``photo`` in :meth:`telepotpro.aio.Bot.sendPhoto`
         """
         p = _strip(locals(), more=['video'])
         return await self._api_request_with_file('sendVideo', _rectify(p), 'video', video)
@@ -184,7 +184,7 @@ class Bot(_BotBase):
         """
         See: https://core.telegram.org/bots/api#sendvoice
 
-        :param voice: Same as ``photo`` in :meth:`telepot.aio.Bot.sendPhoto`
+        :param voice: Same as ``photo`` in :meth:`telepotpro.aio.Bot.sendPhoto`
         """
         p = _strip(locals(), more=['voice'])
         return await self._api_request_with_file('sendVoice', _rectify(p), 'voice', voice)
@@ -198,7 +198,7 @@ class Bot(_BotBase):
         """
         See: https://core.telegram.org/bots/api#sendvideonote
 
-        :param voice: Same as ``photo`` in :meth:`telepot.aio.Bot.sendPhoto`
+        :param voice: Same as ``photo`` in :meth:`telepotpro.aio.Bot.sendPhoto`
 
         :param length:
             Although marked as optional, this method does not seem to work without
@@ -227,8 +227,8 @@ class Bot(_BotBase):
 
             In case of uploading, you may supply customized multipart/form-data
             names for each uploaded file (as in last 2 options above). Otherwise,
-            telepot assigns unique names to each uploaded file. Names assigned by
-            telepot will not collide with user-supplied names, if any.
+            telepotpro assigns unique names to each uploaded file. Names assigned by
+            telepotpro will not collide with user-supplied names, if any.
         """
         p = _strip(locals(), more=['media'])
         legal_media, files_to_attach = _split_input_media_array(media)
@@ -468,7 +468,7 @@ class Bot(_BotBase):
             a 2-tuple (``chat_id``, ``message_id``),
             a 1-tuple (``inline_message_id``),
             or simply ``inline_message_id``.
-            You may extract this value easily with :meth:`telepot.message_identifier`
+            You may extract this value easily with :meth:`telepotpro.message_identifier`
         """
         p = _strip(locals(), more=['msg_identifier'])
         p.update(_dismantle_message_identifier(msg_identifier))
@@ -481,7 +481,7 @@ class Bot(_BotBase):
         """
         See: https://core.telegram.org/bots/api#editmessagecaption
 
-        :param msg_identifier: Same as ``msg_identifier`` in :meth:`telepot.aio.Bot.editMessageText`
+        :param msg_identifier: Same as ``msg_identifier`` in :meth:`telepotpro.aio.Bot.editMessageText`
         """
         p = _strip(locals(), more=['msg_identifier'])
         p.update(_dismantle_message_identifier(msg_identifier))
@@ -492,7 +492,7 @@ class Bot(_BotBase):
         """
         See: https://core.telegram.org/bots/api#editmessagereplymarkup
 
-        :param msg_identifier: Same as ``msg_identifier`` in :meth:`telepot.aio.Bot.editMessageText`
+        :param msg_identifier: Same as ``msg_identifier`` in :meth:`telepotpro.aio.Bot.editMessageText`
         """
         p = _strip(locals(), more=['msg_identifier'])
         p.update(_dismantle_message_identifier(msg_identifier))
@@ -503,7 +503,7 @@ class Bot(_BotBase):
         See: https://core.telegram.org/bots/api#deletemessage
 
         :param msg_identifier:
-            Same as ``msg_identifier`` in :meth:`telepot.aio.Bot.editMessageText`,
+            Same as ``msg_identifier`` in :meth:`telepotpro.aio.Bot.editMessageText`,
             except this method does not work on inline messages.
         """
         p = _strip(locals(), more=['msg_identifier'])
@@ -517,7 +517,7 @@ class Bot(_BotBase):
         """
         See: https://core.telegram.org/bots/api#sendsticker
 
-        :param sticker: Same as ``photo`` in :meth:`telepot.aio.Bot.sendPhoto`
+        :param sticker: Same as ``photo`` in :meth:`telepotpro.aio.Bot.sendPhoto`
         """
         p = _strip(locals(), more=['sticker'])
         return await self._api_request_with_file('sendSticker', _rectify(p), 'sticker', sticker)
@@ -669,7 +669,7 @@ class Bot(_BotBase):
             If ``None``, ``getUpdates`` is used to obtain new messages from Telegram servers.
             If it is a ``asyncio.Queue``, new messages are pulled from the queue.
             A web application implementing a webhook can dump updates into the queue,
-            while the bot pulls from it. This is how telepot can be integrated with webhooks.
+            while the bot pulls from it. This is how telepotpro can be integrated with webhooks.
 
         Acceptable contents in queue:
 
@@ -697,12 +697,12 @@ class Bot(_BotBase):
 
         :type timeout: int
         :param timeout:
-            ``timeout`` parameter supplied to :meth:`telepot.aio.Bot.getUpdates`,
+            ``timeout`` parameter supplied to :meth:`telepotpro.aio.Bot.getUpdates`,
             controlling how long to poll in seconds.
 
         :type allowed_updates: array of string
         :param allowed_updates:
-            ``allowed_updates`` parameter supplied to :meth:`telepot.aio.Bot.getUpdates`,
+            ``allowed_updates`` parameter supplied to :meth:`telepotpro.aio.Bot.getUpdates`,
             controlling which types of updates to receive.
         """
         if handler is None:

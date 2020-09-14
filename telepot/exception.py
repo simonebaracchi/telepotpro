@@ -1,10 +1,10 @@
 import sys
 
-class TelepotException(Exception):
+class telepotproException(Exception):
     """ Base class of following exceptions. """
     pass
 
-class BadFlavor(TelepotException):
+class BadFlavor(telepotproException):
     def __init__(self, offender):
         super(BadFlavor, self).__init__(offender)
 
@@ -14,7 +14,7 @@ class BadFlavor(TelepotException):
 
 PY_3 = sys.version_info.major >= 3
 
-class BadHTTPResponse(TelepotException):
+class BadHTTPResponse(telepotproException):
     """
     All requests to Bot API should result in a JSON response. If non-JSON, this
     exception is raised. While it is hard to pinpoint exactly when this might happen,
@@ -40,7 +40,7 @@ class BadHTTPResponse(TelepotException):
     def response(self):
         return self.args[2]
 
-class EventNotFound(TelepotException):
+class EventNotFound(telepotproException):
     def __init__(self, event):
         super(EventNotFound, self).__init__(event)
 
@@ -48,7 +48,7 @@ class EventNotFound(TelepotException):
     def event(self):
         return self.args[0]
 
-class WaitTooLong(TelepotException):
+class WaitTooLong(telepotproException):
     def __init__(self, seconds):
         super(WaitTooLong, self).__init__(seconds)
 
@@ -59,14 +59,14 @@ class WaitTooLong(TelepotException):
 class IdleTerminate(WaitTooLong):
     pass
 
-class StopListening(TelepotException):
+class StopListening(telepotproException):
     pass
 
-class TelegramError(TelepotException):
+class TelegramError(telepotproException):
     """
     To indicate erroneous situations, Telegram returns a JSON object containing
     an *error code* and a *description*. This will cause a ``TelegramError`` to
-    be raised. Before raising a generic ``TelegramError``, telepot looks for
+    be raised. Before raising a generic ``TelegramError``, telepotpro looks for
     a more specific subclass that "matches" the error. If such a class exists,
     an exception of that specific subclass is raised. This allows you to either
     catch specific errors or to cast a wide net (by a catch-all ``TelegramError``).

@@ -46,8 +46,8 @@ def _create_class(typename, fields):
                 s = ('Unexpected fields: ' + ', '.join(unexpected) + ''
                      '\nBot API seems to have added new fields to the returned data.'
                      ' This version of namedtuple is not able to capture them.'
-                     '\n\nPlease upgrade telepot by:'
-                     '\n  sudo pip install telepot --upgrade'
+                     '\n\nPlease upgrade telepotpro by:'
+                     '\n  sudo pip install telepotpro --upgrade'
                      '\n\nIf you still see this message after upgrade, that means I am still working to bring the code up-to-date.'
                      ' Please try upgrade again a few days later.'
                      ' In the meantime, you can access the new fields the old-fashioned way, through the raw dictionary.')

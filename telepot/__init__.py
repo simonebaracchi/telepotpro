@@ -164,9 +164,9 @@ def glance(msg, flavor='chat', long=False):
 
 def flance(msg, long=False):
     """
-    A combination of :meth:`telepot.flavor` and :meth:`telepot.glance`,
+    A combination of :meth:`telepotpro.flavor` and :meth:`telepotpro.glance`,
     return a 2-tuple (flavor, headline_info), where *headline_info* is whatever extracted by
-    :meth:`telepot.glance` depending on the message flavor and the ``long`` parameter.
+    :meth:`telepotpro.glance` depending on the message flavor and the ``long`` parameter.
     """
     f = flavor(msg)
     g = glance(msg, flavor=f, long=long)
@@ -183,7 +183,7 @@ def peel(event):
 
 def fleece(event):
     """
-    A combination of :meth:`telepot.flavor` and :meth:`telepot.peel`,
+    A combination of :meth:`telepotpro.flavor` and :meth:`telepotpro.peel`,
     return a 2-tuple (flavor, content) of an event.
     """
     return flavor(event), peel(event)
@@ -213,7 +213,7 @@ def origin_identifier(msg):
 
 def message_identifier(msg):
     """
-    Extract an identifier for message editing. Useful with :meth:`telepot.Bot.editMessageText`
+    Extract an identifier for message editing. Useful with :meth:`telepotpro.Bot.editMessageText`
     and similar methods. Returned value is guaranteed to be a tuple.
 
     ``msg`` is expected to be ``chat`` or ``choson_inline_result``.
@@ -550,7 +550,7 @@ class Bot(_BotBase):
         """
         See: https://core.telegram.org/bots/api#sendaudio
 
-        :param audio: Same as ``photo`` in :meth:`telepot.Bot.sendPhoto`
+        :param audio: Same as ``photo`` in :meth:`telepotpro.Bot.sendPhoto`
         """
         p = _strip(locals(), more=['audio'])
         return self._api_request_with_file('sendAudio', _rectify(p), 'audio', audio)
@@ -564,7 +564,7 @@ class Bot(_BotBase):
         """
         See: https://core.telegram.org/bots/api#senddocument
 
-        :param document: Same as ``photo`` in :meth:`telepot.Bot.sendPhoto`
+        :param document: Same as ``photo`` in :meth:`telepotpro.Bot.sendPhoto`
         """
         p = _strip(locals(), more=['document'])
         return self._api_request_with_file('sendDocument', _rectify(p), 'document', document)
@@ -582,7 +582,7 @@ class Bot(_BotBase):
         """
         See: https://core.telegram.org/bots/api#sendvideo
 
-        :param video: Same as ``photo`` in :meth:`telepot.Bot.sendPhoto`
+        :param video: Same as ``photo`` in :meth:`telepotpro.Bot.sendPhoto`
         """
         p = _strip(locals(), more=['video'])
         return self._api_request_with_file('sendVideo', _rectify(p), 'video', video)
@@ -597,7 +597,7 @@ class Bot(_BotBase):
         """
         See: https://core.telegram.org/bots/api#sendvoice
 
-        :param voice: Same as ``photo`` in :meth:`telepot.Bot.sendPhoto`
+        :param voice: Same as ``photo`` in :meth:`telepotpro.Bot.sendPhoto`
         """
         p = _strip(locals(), more=['voice'])
         return self._api_request_with_file('sendVoice', _rectify(p), 'voice', voice)
@@ -611,7 +611,7 @@ class Bot(_BotBase):
         """
         See: https://core.telegram.org/bots/api#sendvideonote
 
-        :param video_note: Same as ``photo`` in :meth:`telepot.Bot.sendPhoto`
+        :param video_note: Same as ``photo`` in :meth:`telepotpro.Bot.sendPhoto`
 
         :param length:
             Although marked as optional, this method does not seem to work without
@@ -640,8 +640,8 @@ class Bot(_BotBase):
 
             In case of uploading, you may supply customized multipart/form-data
             names for each uploaded file (as in last 2 options above). Otherwise,
-            telepot assigns unique names to each uploaded file. Names assigned by
-            telepot will not collide with user-supplied names, if any.
+            telepotpro assigns unique names to each uploaded file. Names assigned by
+            telepotpro will not collide with user-supplied names, if any.
         """
         p = _strip(locals(), more=['media'])
         legal_media, files_to_attach = _split_input_media_array(media)
@@ -881,7 +881,7 @@ class Bot(_BotBase):
             a 2-tuple (``chat_id``, ``message_id``),
             a 1-tuple (``inline_message_id``),
             or simply ``inline_message_id``.
-            You may extract this value easily with :meth:`telepot.message_identifier`
+            You may extract this value easily with :meth:`telepotpro.message_identifier`
         """
         p = _strip(locals(), more=['msg_identifier'])
         p.update(_dismantle_message_identifier(msg_identifier))
@@ -894,7 +894,7 @@ class Bot(_BotBase):
         """
         See: https://core.telegram.org/bots/api#editmessagecaption
 
-        :param msg_identifier: Same as ``msg_identifier`` in :meth:`telepot.Bot.editMessageText`
+        :param msg_identifier: Same as ``msg_identifier`` in :meth:`telepotpro.Bot.editMessageText`
         """
         p = _strip(locals(), more=['msg_identifier'])
         p.update(_dismantle_message_identifier(msg_identifier))
@@ -905,7 +905,7 @@ class Bot(_BotBase):
         """
         See: https://core.telegram.org/bots/api#editmessagereplymarkup
 
-        :param msg_identifier: Same as ``msg_identifier`` in :meth:`telepot.Bot.editMessageText`
+        :param msg_identifier: Same as ``msg_identifier`` in :meth:`telepotpro.Bot.editMessageText`
         """
         p = _strip(locals(), more=['msg_identifier'])
         p.update(_dismantle_message_identifier(msg_identifier))
@@ -916,7 +916,7 @@ class Bot(_BotBase):
         See: https://core.telegram.org/bots/api#deletemessage
 
         :param msg_identifier:
-            Same as ``msg_identifier`` in :meth:`telepot.Bot.editMessageText`,
+            Same as ``msg_identifier`` in :meth:`telepotpro.Bot.editMessageText`,
             except this method does not work on inline messages.
         """
         p = _strip(locals(), more=['msg_identifier'])
@@ -930,7 +930,7 @@ class Bot(_BotBase):
         """
         See: https://core.telegram.org/bots/api#sendsticker
 
-        :param sticker: Same as ``photo`` in :meth:`telepot.Bot.sendPhoto`
+        :param sticker: Same as ``photo`` in :meth:`telepotpro.Bot.sendPhoto`
         """
         p = _strip(locals(), more=['sticker'])
         return self._api_request_with_file('sendSticker', _rectify(p), 'sticker', sticker)
@@ -1027,7 +1027,7 @@ class Bot(_BotBase):
         """
         See: https://core.telegram.org/bots/api#setgamescore
 
-        :param game_message_identifier: Same as ``msg_identifier`` in :meth:`telepot.Bot.editMessageText`
+        :param game_message_identifier: Same as ``msg_identifier`` in :meth:`telepotpro.Bot.editMessageText`
         """
         p = _strip(locals(), more=['game_message_identifier'])
         p.update(_dismantle_message_identifier(game_message_identifier))
@@ -1037,7 +1037,7 @@ class Bot(_BotBase):
         """
         See: https://core.telegram.org/bots/api#getgamehighscores
 
-        :param game_message_identifier: Same as ``msg_identifier`` in :meth:`telepot.Bot.editMessageText`
+        :param game_message_identifier: Same as ``msg_identifier`` in :meth:`telepotpro.Bot.editMessageText`
         """
         p = _strip(locals(), more=['game_message_identifier'])
         p.update(_dismantle_message_identifier(game_message_identifier))
@@ -1094,7 +1094,7 @@ class Bot(_BotBase):
             If it is a synchronized queue (``Queue.Queue`` in Python 2.7 or
             ``queue.Queue`` in Python 3), new messages are pulled from the queue.
             A web application implementing a webhook can dump updates into the queue,
-            while the bot pulls from it. This is how telepot can be integrated with webhooks.
+            while the bot pulls from it. This is how telepotpro can be integrated with webhooks.
 
         Acceptable contents in queue:
 
@@ -1109,12 +1109,12 @@ class Bot(_BotBase):
 
         :type timeout: int
         :param timeout:
-            ``timeout`` parameter supplied to :meth:`telepot.Bot.getUpdates`,
+            ``timeout`` parameter supplied to :meth:`telepotpro.Bot.getUpdates`,
             controlling how long to poll.
 
         :type allowed_updates: array of string
         :param allowed_updates:
-            ``allowed_updates`` parameter supplied to :meth:`telepot.Bot.getUpdates`,
+            ``allowed_updates`` parameter supplied to :meth:`telepotpro.Bot.getUpdates`,
             controlling which types of updates to receive.
 
         When ``source`` is a queue, these parameters are meaningful:

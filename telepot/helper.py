@@ -206,7 +206,7 @@ class Editor(object):
     - :meth:`.Bot.editMessageLiveLocation`
     - :meth:`.Bot.stopMessageLiveLocation`
 
-    A message's identifier can be easily extracted with :func:`telepot.message_identifier`.
+    A message's identifier can be easily extracted with :func:`telepotpro.message_identifier`.
     """
 
     def __init__(self, bot, msg_identifier):
