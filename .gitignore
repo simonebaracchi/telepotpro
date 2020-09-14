@@ -5,3 +5,4 @@ telepotpro.egg-info/
 dist/
 .remote-sync.json
 .pypirc
+devstuff/
