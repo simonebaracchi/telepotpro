@@ -31,7 +31,7 @@ PY_35 = sys.version_info >= (3,5)
 
 here = path.abspath(path.dirname(__file__))
 
-install_requires = ['urllib3>=1.9.1']
+install_requires = ['urllib3>=1.9.1,<=1.24.1'] # urllib3 needed: min. 1.9.1, max. 1.24.1 (ssl error bug) (included)
 cmdclass = {}
 
 if PY_35:
@@ -66,7 +66,7 @@ setup(
     url='https://github.com/pesaventofilippo/telepotpro',
 
     author='Filippo Pesavento',
-    author_email='lee1nick@yahoo.ca',
+    author_email='pesaventofilippo@gmail.com',
 
     license='MIT',
 
@@ -88,6 +88,8 @@ setup(
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
     ],
 
     keywords='telegram bot api python wrapper',
