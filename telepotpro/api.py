@@ -1,5 +1,4 @@
 import urllib3
-import logging
 import json
 import re
 import os
@@ -10,11 +9,11 @@ from . import exception, _isstring
 urllib3.disable_warnings()
 
 
-_default_pool_params = dict(num_pools=3, maxsize=10, retries=3, timeout=30)
+_default_pool_params = dict(num_pools=3, maxsize=10, retries=3, timeout=10)
 _onetime_pool_params = dict(num_pools=1, maxsize=1, retries=3, timeout=30)
 
 _pools = {
-    'default': urllib3.PoolManager(**_default_pool_params),
+    'default': urllib3.PoolManager(**_default_pool_params)
 }
 
 _onetime_pool_spec = (urllib3.PoolManager, _onetime_pool_params)
@@ -48,8 +47,9 @@ def _methodurl(req, **user_kw):
     return 'https://api.telegram.org/bot%s/%s' % (token, method)
 
 def _which_pool(req, **user_kw):
-    token, method, params, files = req
-    return None if files else 'default'
+    # token, method, params, files = req
+    # return None if files else 'default'
+    return None
 
 def _guess_filename(obj):
     name = getattr(obj, 'name', None)
