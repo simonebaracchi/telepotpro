@@ -1052,6 +1052,7 @@ class DefaultRouterMixin(object):
                                        'chosen_inline_result': lambda msg: self.on_chosen_inline_result(msg),
                                        'shipping_query': lambda msg: self.on_shipping_query(msg),
                                        'pre_checkout_query': lambda msg: self.on_pre_checkout_query(msg),
+                                       'poll': lambda msg: self.on_poll(msg),
                                        '_idle': lambda event: self.on__idle(event)})
                                        # use lambda to delay evaluation of self.on_ZZZ to runtime because
                                        # I don't want to require defining all methods right here.

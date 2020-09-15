@@ -435,6 +435,38 @@ SuccessfulPayment = _create_class('SuccessfulPayment', [
                         'provider_payment_charge_id',
                     ])
 
+PollOption = _create_class('PollOption', [
+           'text',
+           'voter_count'
+       ])
+
+def PollOptionsArray(data):
+    return [PollOption(**p) for p in data]
+
+# incoming
+Poll = _create_class('Poll', [
+           'id',
+           'question',
+           _Field('options', constructor=PollOptionsArray),
+           'total_voter_count',
+           'is_closed',
+           'is_anonymous',
+           'type',
+           'allows_multiple_answers',
+           'correct_option_id',
+           'explanation',
+           _Field('explanation_entities', constructor=MessageEntityArray),
+           'open_period',
+           'close_date'
+       ])
+
+# incoming
+Dice = _create_class('Dice', [
+           'emoji',
+           'value'
+       ])
+
+
 # incoming
 Message = _create_class('Message', [
               'message_id',
@@ -445,9 +477,12 @@ Message = _create_class('Message', [
               _Field('forward_from_chat', constructor=Chat),
               'forward_from_message_id',
               'forward_signature',
+              'forward_sender_name',
               'forward_date',
               _Field('reply_to_message', constructor=_Message),
+              _Field('via_bot', constructor=User),
               'edit_date',
+              'media_group_id',
               'author_signature',
               'text',
               _Field('entities', constructor=MessageEntityArray),
@@ -463,6 +498,8 @@ Message = _create_class('Message', [
               _Field('new_chat_members', constructor=UserArray),
               'caption',
               _Field('contact', constructor=Contact),
+              _Field('dice', constructor=Dice),
+              _Field('poll', constructor=Poll),
               _Field('location', constructor=Location),
               _Field('venue', constructor=Venue),
               _Field('new_chat_member', constructor=User),

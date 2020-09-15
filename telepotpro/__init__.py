@@ -34,6 +34,7 @@ def flavor(msg):
     - ``chosen_inline_result``
     - ``shipping_query``
     - ``pre_checkout_query``
+    - ``poll``
 
     An event's flavor is determined by the single top-level key.
     """
@@ -49,6 +50,8 @@ def flavor(msg):
         return 'shipping_query'
     elif 'id' in msg and 'total_amount' in msg:
         return 'pre_checkout_query'
+    elif 'id' in msg and 'question' in msg:
+        return 'poll'
     else:
         top_keys = list(msg.keys())
         if len(top_keys) == 1:
@@ -73,7 +76,7 @@ all_content_types = [
     'contact', 'location', 'venue', 'new_chat_member', 'left_chat_member', 'new_chat_title',
     'new_chat_photo',  'delete_chat_photo', 'group_chat_created', 'supergroup_chat_created',
     'channel_chat_created', 'migrate_to_chat_id', 'migrate_from_chat_id', 'pinned_message',
-    'new_chat_members', 'invoice', 'successful_payment'
+    'new_chat_members', 'invoice', 'successful_payment', 'poll'
 ]
 
 def glance(msg, flavor='chat', long=False):
@@ -91,7 +94,7 @@ def glance(msg, flavor='chat', long=False):
     ``video_note``, ``contact``, ``location``, ``venue``, ``new_chat_member``, ``left_chat_member``, ``new_chat_title``,
     ``new_chat_photo``, ``delete_chat_photo``, ``group_chat_created``, ``supergroup_chat_created``,
     ``channel_chat_created``, ``migrate_to_chat_id``, ``migrate_from_chat_id``, ``pinned_message``,
-    ``new_chat_members``, ``invoice``, ``successful_payment``.
+    ``new_chat_members``, ``invoice``, ``successful_payment``, ``poll``.
 
     When ``flavor`` is ``callback_query``
     (``msg`` being a `CallbackQuery <https://core.telegram.org/bots/api#callbackquery>`_ object):
@@ -119,6 +122,12 @@ def glance(msg, flavor='chat', long=False):
 
     - short: (``msg['id']``, ``msg['from']['id']``, ``msg['invoice_payload']``)
     - long: (``msg['id']``, ``msg['from']['id']``, ``msg['invoice_payload']``, ``msg['currency']``, ``msg['total_amount']``)
+
+    When ``flavor`` is ``poll``
+    (``msg`` being a `Poll <https://core.telegram.org/bots/api#poll>`_ object):
+
+    - short: (``msg['id']``, ``msg['question']``, ``msg['options']``)
+    - long: (``msg['id']``, ``msg['question']``, ``msg['options']``, ``msg['total_voter_count']``, ``msg['type']``)
     """
     def gl_chat():
         content_type = _find_first_key(msg, all_content_types)
@@ -149,13 +158,22 @@ def glance(msg, flavor='chat', long=False):
         else:
             return msg['id'], msg['from']['id'], msg['invoice_payload']
 
+    def gl_poll():
+        if long:
+            return msg['id'], msg['question'], msg['options'], msg['total_voter_count'], msg['type']
+        else:
+            return msg['id'], msg['question'], msg['options']
+
     try:
-        fn = {'chat': gl_chat,
-              'callback_query': gl_callback_query,
-              'inline_query': gl_inline_query,
-              'chosen_inline_result': gl_chosen_inline_result,
-              'shipping_query': gl_shipping_query,
-              'pre_checkout_query': gl_pre_checkout_query}[flavor]
+        fn = {
+            'chat': gl_chat,
+            'callback_query': gl_callback_query,
+            'inline_query': gl_inline_query,
+            'chosen_inline_result': gl_chosen_inline_result,
+            'shipping_query': gl_shipping_query,
+            'pre_checkout_query': gl_pre_checkout_query,
+            'poll': gl_poll
+        }[flavor]
     except KeyError:
         raise exception.BadFlavor(flavor)
 
@@ -1169,7 +1187,8 @@ class Bot(_BotBase):
                                            'inline_query',
                                            'chosen_inline_result',
                                            'shipping_query',
-                                           'pre_checkout_query'])
+                                           'pre_checkout_query',
+                                           'poll'])
             collect_queue.put(update[key])
             return update['update_id']
 

@@ -7,8 +7,8 @@ Consult this for a list of things added to telepot and to see what I am currentl
 
 - [x] Fixed requests crashing with urllib3 >= 1.24.2
 - [x] Added "deleted" text format option in HTML and MD
-- [ ] Fix bot crashing when receiving a poll
-- [ ] Fully implement polls (incoming)
+- [x] Fix bot crashing when receiving a poll
+- [x] Fully implement polls (incoming)
 - [ ] Fully implement polls (outgoing, from bot)
 - [ ] Fix urllib connections pooling
 - [ ] Fix requests to telegram servers timeout
