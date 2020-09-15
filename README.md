@@ -6,6 +6,7 @@ An improved version of telepot by nickoala, with support for newer features and 
 Consult this for a list of things added to telepot and to see what I am currently planning on doing.
 
 - [x] Fixed requests crashing with urllib3 >= 1.24.2
+- [x] Added "deleted" text format option in HTML and MD
 - [ ] Fix bot crashing when receiving a poll
 - [ ] Fully implement polls (incoming)
 - [ ] Fully implement polls (outgoing, from bot)
