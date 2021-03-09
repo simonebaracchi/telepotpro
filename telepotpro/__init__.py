@@ -76,7 +76,7 @@ all_content_types = [
     'contact', 'location', 'venue', 'new_chat_member', 'left_chat_member', 'new_chat_title',
     'new_chat_photo',  'delete_chat_photo', 'group_chat_created', 'supergroup_chat_created',
     'channel_chat_created', 'migrate_to_chat_id', 'migrate_from_chat_id', 'pinned_message',
-    'new_chat_members', 'invoice', 'successful_payment', 'poll'
+    'new_chat_members', 'my_chat_member', 'chat_member', 'invoice', 'successful_payment', 'poll'
 ]
 
 def glance(msg, flavor='chat', long=False):
@@ -1188,7 +1188,9 @@ class Bot(_BotBase):
                                            'chosen_inline_result',
                                            'shipping_query',
                                            'pre_checkout_query',
-                                           'poll'])
+                                           'poll',
+                                           'my_chat_member',
+                                           'chat_member'])
             collect_queue.put(update[key])
             return update['update_id']
 
