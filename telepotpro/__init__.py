@@ -18,7 +18,7 @@ from . import hack
 from . import exception
 
 
-__version_info__ = (13, 1)
+__version_info__ = (13, 2)
 __version__ = '.'.join(map(str, __version_info__))
 
 
@@ -68,7 +68,7 @@ def _find_first_key(d, keys):
     for k in keys:
         if k in d:
             return k
-    raise KeyError('No suggested keys %s in %s' % (str(keys), str(d)))
+    raise None
 
 
 all_content_types = [

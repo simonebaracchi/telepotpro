@@ -109,10 +109,12 @@ def _extract_message(update):
                                    'chosen_inline_result',
                                    'shipping_query',
                                    'pre_checkout_query',
-                                   'poll'])
-    if not key:
-        return key, update
-    return key, update[key]
+                                   'poll',
+                                   'new_chat_member',
+                                   'old_chat_member'])
+    if key:
+        return key, update[key]
+    return key, update
 
 def _infer_handler_function(bot, h):
     if h is None:
