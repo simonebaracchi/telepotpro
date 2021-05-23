@@ -18,7 +18,7 @@ from . import hack
 from . import exception
 
 
-__version_info__ = (13, 2)
+__version_info__ = (13, 3)
 __version__ = '.'.join(map(str, __version_info__))
 
 
@@ -68,7 +68,7 @@ def _find_first_key(d, keys):
     for k in keys:
         if k in d:
             return k
-    raise None
+    return None
 
 
 all_content_types = [
@@ -1191,7 +1191,11 @@ class Bot(_BotBase):
                                            'poll',
                                            'my_chat_member',
                                            'chat_member'])
-            collect_queue.put(update[key])
+
+            if key:
+                collect_queue.put(update[key])
+            else:
+                collect_queue.put(update)
             return update['update_id']
 
         def get_from_telegram_server():

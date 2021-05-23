@@ -730,7 +730,10 @@ class Bot(_BotBase):
                                                'shipping_query',
                                                'pre_checkout_query'])
 
-                callback(update[key])
+                if key:
+                    callback(update[key])
+                else:
+                    callback(update)
             except:
                 # Localize the error so message thread can keep going.
                 traceback.print_exc()
