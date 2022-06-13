@@ -52,13 +52,15 @@ def apply_entities_as_markdown(text, entities):
                '[': '\\[',
                '`': '\\`',}
 
-    formatters = {'bold':         lambda s,e: '*'+s+'*',
-                  'italic':       lambda s,e: '_'+s+'_',
-                  'text_link':    lambda s,e: '['+s+']('+e['url']+')',
-                  'text_mention': lambda s,e: '['+s+'](tg://user?id='+str(e['user']['id'])+')',
-                  'code':         lambda s,e: '`'+s+'`',
-                  'pre':          lambda s,e: '```text\n'+s+'```',
-                  'del':          lambda s,e: '~'+s+'~'}
+    formatters = {'bold':          lambda s,e: '*'+s+'*',
+                  'italic':        lambda s,e: '_'+s+'_',
+                  'underline':     lambda s, e: '__' + s + '__',
+                  'strikethrough': lambda s, e: '~' + s + '~',
+                  'spoiler': lambda s, e: '||' + s + '||',
+                  'text_link':     lambda s,e: '['+s+']('+e['url']+')',
+                  'text_mention':  lambda s,e: '['+s+'](tg://user?id='+str(e['user']['id'])+')',
+                  'code':          lambda s,e: '`'+s+'`',
+                  'pre':           lambda s,e: '```text\n'+s+'```'}
 
     return _apply_entities(text, entities, escapes, formatters)
 
@@ -79,12 +81,14 @@ def apply_entities_as_html(text, entities):
                '>': '&gt;',
                '&': '&amp;',}
 
-    formatters = {'bold':         lambda s,e: '<b>'+s+'</b>',
-                  'italic':       lambda s,e: '<i>'+s+'</i>',
-                  'text_link':    lambda s,e: '<a href="'+e['url']+'">'+s+'</a>',
-                  'text_mention': lambda s,e: '<a href="tg://user?id='+str(e['user']['id'])+'">'+s+'</a>',
-                  'code':         lambda s,e: '<code>'+s+'</code>',
-                  'pre':          lambda s,e: '<pre>'+s+'</pre>',
-                  'del':          lambda s,e: '<del>'+s+'</del>'}
+    formatters = {'bold':          lambda s,e: '<b>'+s+'</b>',
+                  'italic':        lambda s,e: '<i>'+s+'</i>',
+                  'underline':     lambda s,e: '<u>'+s+'</u>',
+                  'strikethrough': lambda s,e: '<s>'+s+'</s>',
+                  'spoiler':       lambda s,e: '<tg-spoiler>'+s+'</tg-spoiler>',
+                  'text_link':     lambda s,e: '<a href="'+e['url']+'">'+s+'</a>',
+                  'text_mention':  lambda s,e: '<a href="tg://user?id='+str(e['user']['id'])+'">'+s+'</a>',
+                  'code':          lambda s,e: '<code>'+s+'</code>',
+                  'pre':           lambda s,e: '<pre>'+s+'</pre>'}
 
     return _apply_entities(text, entities, escapes, formatters)

@@ -12,8 +12,6 @@ Consult this for a list of things added to telepot and to see what I am currentl
 - [x] Added support for dice messages
 - [x] Fix urllib connections pooling
 - [x] Fix requests to telegram servers timeout
-- [ ] Update api.py to latest Telegram v4.9 APIs
-  - [ ] Fully implement polls (outgoing, from bot)
 
 
 ## Original links & description
