@@ -9,8 +9,10 @@ from . import exception, _isstring
 urllib3.disable_warnings()
 
 
+_API_BASE_URL = 'https://api.telegram.org'
 _default_pool_params = dict(num_pools=3, maxsize=10, retries=3, timeout=10)
 _onetime_pool_params = dict(num_pools=1, maxsize=1, retries=3, timeout=30)
+
 
 _pools = {
     'default': urllib3.PoolManager(**_default_pool_params)
@@ -38,13 +40,26 @@ def set_proxy(url, basic_auth=None):
         _pools['default'] = urllib3.ProxyManager(url, **_default_pool_params)
         _onetime_pool_spec = (urllib3.ProxyManager, dict(proxy_url=url, **_onetime_pool_params))
 
+def set_api_url(url):
+    """
+    Set Telegram API base url. Defaults to ``https://api.telegram.org``.
+
+    :param url: API Base URL
+    """
+    global _API_BASE_URL
+    if not url:
+        _API_BASE_URL = 'https://api.telegram.org'
+    else:
+        _API_BASE_URL = url.rstrip('/')
+
 def _create_onetime_pool():
     cls, kw = _onetime_pool_spec
     return cls(**kw)
 
 def _methodurl(req, **user_kw):
     token, method, params, files = req
-    return 'https://api.telegram.org/bot%s/%s' % (token, method)
+    return f"{_API_BASE_URL}/bot{token}/{method}"
+
 
 def _which_pool(req, **user_kw):
     # token, method, params, files = req
@@ -156,7 +171,7 @@ def request(req, **user_kw):
 
 def _fileurl(req):
     token, path = req
-    return 'https://api.telegram.org/file/bot%s/%s' % (token, path)
+    return f"{_API_BASE_URL}/file/bot{token}/{path}"
 
 def download(req, **user_kw):
     pool = _create_onetime_pool()
