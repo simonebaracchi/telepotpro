@@ -18,7 +18,7 @@ from . import hack
 from . import exception
 
 
-__version_info__ = (13, 4)
+__version_info__ = (13, 5)
 __version__ = '.'.join(map(str, __version_info__))
 
 
@@ -519,6 +519,10 @@ class Bot(_BotBase):
     def getMe(self):
         """ See: https://core.telegram.org/bots/api#getme """
         return self._api_request('getMe')
+
+    def logOut(self):
+        """ See: https://core.telegram.org/bots/api#logout """
+        return self._api_request('logOut')
 
     def sendMessage(self, chat_id, text,
                     parse_mode=None,
