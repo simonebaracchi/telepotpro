@@ -68,11 +68,18 @@ class GetUpdatesLoop(RunForeverAsThread):
                     offset = update['update_id'] + 1
 
             except exception.BadHTTPResponse as e:
-                traceback.print_exc()
-
                 # Servers probably down. Wait longer.
                 if e.status == 502:
+                    print('Telegram server is unresponsive, trying again in 30 seconds')
                     time.sleep(30)
+                else:
+                    traceback.print_exc()
+            except exception.TelegramError as e:
+                if e.error_code == 502:
+                    print('Telegram server is unresponsive, trying again in 30 seconds')
+                    time.sleep(30)
+                else:
+                    traceback.print_exc()
             except:
                 traceback.print_exc()
             finally:
