@@ -1416,6 +1416,36 @@ class DelegatorBot(SpeakerBot):
         else:
             raise RuntimeError('Delegate does not have the required methods, is not callable, and is not a valid tuple.')
 
+    def get_delegate_by_id(self, id):
+        """
+        Get the delegate by its id, return None if it doesn't exist
+        """
+        if id is None:
+            return None
+            
+        # Just check if delegate exists, don't create one
+        for _, _, dict in self._delegate_records:
+            if isinstance(id, collections.abc.Hashable):
+                if id in dict and dict[id].is_alive():
+                    return dict[id]
+            
+        return None
+
+    def create_delegate_for_chat(self, chat_id):
+        """
+        Create a delegate for a specific chat_id with a proper initialization message
+        """
+        fake_msg = {
+            'message_id': 0, 
+            'from': {'id': chat_id},
+            'chat': {'id': chat_id, 'type': 'private'},
+            'date': int(time.time())
+        }
+        
+        # Use the normal handle method to create the delegate
+        self.handle(fake_msg)
+        return self.get_delegate_by_id(chat_id)
+
     def handle(self, msg):
         self._mic.send(msg)
 

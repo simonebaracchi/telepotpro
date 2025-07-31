@@ -1084,6 +1084,49 @@ class Monitor(ListenerContext, DefaultRouterMixin):
             self.listener.capture(pattern)
 
 
+class ChatHandlerCollector(object):
+    """
+    A collector for :class:`.ChatHandler`. 
+    Used to retrieve ChatHandler by their chat_id
+    """
+    
+    # Static dictionary to store ChatHandler instances by chat_id
+    _handlers = {}
+    _lock = threading.Lock()
+    
+    @classmethod
+    def register(cls, chat_id, handler):
+        """
+        Register a ChatHandler instance.
+        
+        :param chat_id: The chat ID
+        :param handler: The ChatHandler instance
+        """
+        with cls._lock:
+            cls._handlers[chat_id] = handler
+    
+    @classmethod
+    def unregister(cls, chat_id):
+        """
+        Unregister a ChatHandler instance.
+        
+        :param chat_id: The chat ID to remove
+        """
+        with cls._lock:
+            cls._handlers.pop(chat_id, None)
+    
+    @classmethod
+    def get_handler(cls, chat_id):
+        """
+        Get a ChatHandler instance by chat_id.
+        
+        :param chat_id: The chat ID to search for
+        :return: ChatHandler instance or None if not found
+        """
+        with cls._lock:
+            return cls._handlers.get(chat_id)
+    
+
 @openable
 class ChatHandler(ChatContext,
                   DefaultRouterMixin,
@@ -1101,6 +1144,19 @@ class ChatHandler(ChatContext,
 
         if include_callback_query:
             self.listener.capture([{'message': {'chat': {'id': self.chat_id}}}])
+        
+        # Register this handler in the collector
+        ChatHandlerCollector.register(self.chat_id, self)
+    
+    def __del__(self):
+        """
+        Unregister this handler when the instance is destroyed.
+        """
+        try:
+            ChatHandlerCollector.unregister(self.chat_id)
+        except AttributeError:
+            # Handle case where ChatHandlerCollector might not be available during shutdown
+            pass
 
 
 @openable
